@@ -44,10 +44,11 @@ float radius=0.0;
 float scale=0.0;
 float xoffset=0.0;
 float yoffset=0.0;
-int index=-1;
 
+int _index=-1;
 
 extern "C" {
+
 
 
 double CircularityStandard(const vector<cv::Point> &contour)
@@ -86,7 +87,6 @@ JNIEXPORT jint JNICALL Java_com_example_rohit_myapplication_Detect_process(JNIEn
  adaptiveThreshold(grayscale, grayscale,255, ADAPTIVE_THRESH_GAUSSIAN_C,THRESH_BINARY_INV,7,7 );
  dilate(grayscale,grayscale,getStructuringElement(MORPH_RECT,Size(5,5 ),Point(-1,-1 )));
  erode(grayscale,grayscale, getStructuringElement(MORPH_RECT,Size(3,3 ),Point(-1,-1 )));
-
   findContours( grayscale, contours, hierarchy,CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE );
   mDect=mRgb;
 
@@ -94,7 +94,7 @@ JNIEXPORT jint JNICALL Java_com_example_rohit_myapplication_Detect_process(JNIEn
   ballcenter.clear();
 
   vector< vector<Point> > approx(contours.size());
-  index=-1;
+  _index=-1;
   largest_area=0;
   for( int i = 0; i< contours.size(); i++ )
   {
@@ -138,7 +138,7 @@ JNIEXPORT jint JNICALL Java_com_example_rohit_myapplication_Detect_process(JNIEn
         double area0 = contourArea(contours[i]);
         if(area0>largest_area)
         {
-            index=i;
+            _index=i;
             largest_area=area0;
         }
 
@@ -159,14 +159,14 @@ JNIEXPORT jint JNICALL Java_com_example_rohit_myapplication_Detect_process(JNIEn
    //hp.clear();
 
 
-  /* if(index!=-1)
+  /* if(_index!=-1)
    {
       vector<Point> hullpoint;
       //vector<int> hullpointI;
-      convexHull( Mat(contours[index]), hullpoint, false );
-      //convexHull( Mat(contours[index]), hullpointI, false );
+      convexHull( Mat(contours[_index]), hullpoint, false );
+      //convexHull( Mat(contours[_index]), hullpointI, false );
       hull.push_back(hullpoint);
-       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "conter[index] size %d", contours[index].size());
+       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "conter[_index] size %d", contours[_index].size());
       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "hull size %d", hullpoint.size());
       for(int i=0;i<hullpoint.size();i++)
         hp.push_back(Point2f(hullpoint[i].x*scale+xoffset,hullpoint[i].y*scale+yoffset));
@@ -177,19 +177,19 @@ JNIEXPORT jint JNICALL Java_com_example_rohit_myapplication_Detect_process(JNIEn
 
       /*vector<Vec4i> defects;
       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "start %d", hullpointI.size());
-      convexityDefects( Mat(contours[index]),hullpointI, defects);
+      convexityDefects( Mat(contours[_index]),hullpointI, defects);
       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "deects size %d",defects.size() );
 
        for(int i=0;i<defects.size();i++) {
               int startidx=defects[i][0];
-              Point ptStart( contours[index][startidx] ); // point of the contour where the defect begins
+              Point ptStart( contours[_index][startidx] ); // point of the contour where the defect begins
               int endidx=defects[i][1];
               int faridx=defects[i][2];
-              __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "index %d", i);
+              __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "_index %d", i);
               __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "start %d", startidx);
                 __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "end %d", endidx);
-              Point ptEnd(contours[index][endidx] ); // point of the contour where the defect ends
-              Point ptFar(contours[index][faridx] );
+              Point ptEnd(contours[_index][endidx] ); // point of the contour where the defect ends
+              Point ptFar(contours[_index][faridx] );
               line( mDect, ptStart, ptFar, CV_RGB(0,255,0), 2 );
               line( mDect, ptFar, ptEnd, CV_RGB(0,255,0), 2 );
               circle( mDect, ptFar,   4, Scalar(100,0,255), 2 );

@@ -65,6 +65,7 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
     private boolean PressedOnce = true;
     private GraphicSurface gs;
     private int accelerometerSensor;
+    private int magneticSensor;
     private float xAxis;
     private float yAxis;
     private float zAxis;
@@ -72,6 +73,16 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
     public static Vibrator v;
     public static SoundPool soundpool;
     public static int sound_id ;
+
+    float[] InR = new float[16];
+    float[] I = new float[16];
+    float[] gravity = new float[3];
+    float[] geomag = new float[3];
+    float[] orientVals = new float[3];
+
+    float azimuth = 0.0f;
+    float pitch = 0.0f;
+    float roll = 0.0f;
 
 
     static {
@@ -146,11 +157,13 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometerSensor = Sensor.TYPE_ACCELEROMETER;
+        magneticSensor = Sensor.TYPE_MAGNETIC_FIELD;
         sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(accelerometerSensor), SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(magneticSensor),SensorManager.SENSOR_DELAY_NORMAL);
 
         v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         soundpool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-        sound_id= soundpool.load(getBaseContext(), R.raw.plastic_bounce_002,1);
+        sound_id= soundpool.load(getBaseContext(), R.raw.bounce,1);
 
 
 
@@ -197,7 +210,7 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
             // TODO Auto-generated method stub
-            if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            /*if (sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
 
                 xAxis = sensorEvent.values[0];
                 yAxis = sensorEvent.values[1];
@@ -208,7 +221,39 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
                 gs.setZvalue(zAxis);
 
 
+            }*/
+
+
+            if (sensorEvent.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE)
+                return;
+
+            switch (sensorEvent.sensor.getType()) {
+                case Sensor.TYPE_ACCELEROMETER:
+                    gravity = sensorEvent.values.clone();
+                    break;
+                case Sensor.TYPE_MAGNETIC_FIELD:
+                    geomag = sensorEvent.values.clone();
+                    break;
             }
+
+            if (gravity != null && geomag != null) {
+
+                boolean success = SensorManager.getRotationMatrix(InR, I,
+                        gravity, geomag);
+                if (success) {
+                    SensorManager.getOrientation(InR, orientVals);
+                    azimuth = (float) Math.toDegrees(orientVals[0]);
+                    pitch = (float) Math.toDegrees(orientVals[1]);
+                    roll = (float) Math.toDegrees(orientVals[2]);
+                    gs.setAzimuth(azimuth);
+                    gs.setPitch(pitch);
+                    gs.setRoll(roll);
+
+                    Log.v("TAG","azimuth: "+ String.valueOf(azimuth)+" pitch: "+String.valueOf(pitch)+" roll: "+String.valueOf(roll));
+
+                }
+            }
+
         }
     };
 
@@ -218,6 +263,7 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
         super.onResume();
         OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_6, this, mLoaderCallback);
         sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(accelerometerSensor), SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(sensorEventListener, sensorManager.getDefaultSensor(magneticSensor), SensorManager.SENSOR_DELAY_NORMAL);
 
 
     }
@@ -275,10 +321,10 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) {
         mRgba=inputFrame.rgba();
-        Core.flip(mRgba, mRgba,-1);
+        if (android.os.Build.MODEL.equalsIgnoreCase("Nexus 5X"))
+            Core.flip(mRgba, mRgba,-1);
         detect.process(mRgba,mProcessed);
         return mProcessed;
-        //return inputFrame.rgba();
     }
 
 

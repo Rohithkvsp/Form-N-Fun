@@ -25,6 +25,9 @@ public class GraphicSurface extends SurfaceView implements SurfaceHolder.Callbac
     float xAxis;
     float yAxis;
     float zAxis;
+    float azimuth = 0.0f;
+    float pitch = 0.0f;
+    float roll = 0.0f;
 
 
     public GraphicSurface(Context context) {
@@ -93,10 +96,7 @@ public class GraphicSurface extends SurfaceView implements SurfaceHolder.Callbac
     }
 
 
-    public void setXvalue(float _x) {
-
-        xAxis = _x;
-    }
+    public void setXvalue(float _x) {xAxis = _x;}
 
     public void setYvalue(float _y) {
         yAxis = _y;
@@ -117,6 +117,29 @@ public class GraphicSurface extends SurfaceView implements SurfaceHolder.Callbac
     public float getZvalue()
     {
         return zAxis;
+    }
+
+
+
+    public void setAzimuth(float _azimuth) {azimuth = _azimuth;}
+
+    public void setPitch(float _pitch ) {pitch = _pitch;}
+
+    public void setRoll(float _roll) {
+        roll = _roll;
+    }
+
+    public float getAzimuth()
+    {
+        return azimuth;
+    }
+    public float getPitch()
+    {
+        return pitch;
+    }
+    public float getRoll()
+    {
+        return roll;
     }
 
 

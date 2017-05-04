@@ -39,8 +39,8 @@ public class Ball {
         FixtureDef fd=new FixtureDef();
         fd.shape=cs;
         fd.density=1;
-        fd.friction=0.2f;//0.0f;
-        fd.restitution=0.7f;//0.7f;//1.0f;
+        fd.friction=0.2f;//0.2f;//0.0f;
+        fd.restitution=0.5f;//0.7f;//1.0f;
         b1.createFixture(fd);
         b1.setUserData(this);
 

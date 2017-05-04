@@ -26,11 +26,9 @@ public class Box2DContactListener implements ContactListener {
         Object o2 = b2.getUserData();
 
 
-        if (o1.getClass() == Ball.class && o2.getClass() == Ball.class) {
-            balltoballcontact();
-        }
 
-        if (o1.getClass() == Maze.class) {
+
+        if ((o1.getClass() == Maze.class&&o2.getClass() == Ball.class)||(o1.getClass() == Ball.class&&o2.getClass() == Maze.class)) {
             balltosurfacecontact();
         }
 
@@ -62,7 +60,7 @@ public class Box2DContactListener implements ContactListener {
 
     public void balltosurfacecontact()
     {
-        MainActivity.v.vibrate(1);
+        //MainActivity.v.vibrate(1);
         MainActivity.soundpool.play(MainActivity.sound_id, 1, 1, 1, 0, (float) 0.5);
 
 

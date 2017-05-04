@@ -38,6 +38,8 @@ public class GraphicThread extends Thread {
     private  ArrayList<Maze>mazes=new ArrayList<Maze>();
     private Surface s1,s2,s3,s4;
     float screenheight,screenwidth;
+    float MIN = -3.0f;
+    float MAX = 3.0f;
 
     public GraphicThread(GraphicSurface Gs,Context context_,Createbox2d box2dobject_)
     {
@@ -49,6 +51,10 @@ public class GraphicThread extends Thread {
 
     public void setRunning(boolean run) {
         running = run;
+    }
+
+    public float limit(float value) {
+        return Math.max(MIN, Math.min(value, MAX));
     }
 
     @SuppressLint("NewApi")
@@ -94,8 +100,9 @@ public class GraphicThread extends Thread {
             box2d.step();
             for(Ball ball:balls)
             {
-                Log.v("APP",String.valueOf("force gs x "+Gs.getXvalue()+" , gs y "+Gs.getYvalue()));
-                ball.addforce(Gs.getXvalue(), Gs.getYvalue());
+                Log.v("APP",String.valueOf("force gs roll "+limit(Gs.getRoll())+" , gs picth "+limit(Gs.getRoll())));
+               /// ball.addforce(Gs.getXvalue(), Gs.getYvalue());
+                ball.addforce(-limit(Gs.getRoll()), -limit(Gs.getPitch()));
             }
 
 
