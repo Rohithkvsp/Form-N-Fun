@@ -27,15 +27,16 @@ import org.opencv.core.Mat;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.android.JavaCameraView;
 import android.graphics.PixelFormat;
+import android.hardware.Camera.Size;
 
 import android.content.Context;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Vibrator;
+import android.hardware.Camera;
 
 import org.opencv.core.Point;
-import org.opencv.core.Size;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.MatOfPoint2f;
@@ -43,6 +44,7 @@ import org.opencv.core.CvType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 
 
@@ -50,7 +52,8 @@ import java.util.List;
 public class MainActivity extends Activity implements OnClickListener, CvCameraViewListener2 {
 
 
-    private CameraBridgeViewBase mOpenCvCameraView;
+    ///private CameraBridgeViewBase mOpenCvCameraView;
+    private ViewJavaCamera mOpenCvCameraView;
     private static final String TAG = "APP::Activity";
     private int mCameraIndex=0;
     private Mat mRgba;
@@ -59,6 +62,7 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
     public static int matwidth;
     public static int screenheight=-1;
     public static int screenwidth=-1;
+
 
     private Detect detect;
     private Button bt,bt2;
@@ -85,6 +89,7 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
     float roll = 0.0f;
 
 
+
     static {
         if (!OpenCVLoader.initDebug()) {
             // Handle initialization error
@@ -105,12 +110,15 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
             {
                 case LoaderCallbackInterface.SUCCESS: {
                     Log.i(TAG, "OpenCV loaded successfully");
-                    mOpenCvCameraView.enableView();
-                    screenwidth= mOpenCvCameraView.getWidth();
-                    screenheight=mOpenCvCameraView.getHeight();
 
-                    detect=new Detect(screenwidth,screenheight);
-                } break;
+
+                    mOpenCvCameraView.enableView();
+
+                    screenwidth = mOpenCvCameraView.getWidth();
+                    screenheight = mOpenCvCameraView.getHeight();
+
+                    detect = new Detect(screenwidth, screenheight);
+                }break;
                 default:
                 {
                     super.onManagerConnected(status);
@@ -129,10 +137,13 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
         layout.setLayoutParams(new FrameLayout.LayoutParams(  FrameLayout.LayoutParams.MATCH_PARENT,  FrameLayout.LayoutParams.MATCH_PARENT));
         setContentView(layout);
 
-        mOpenCvCameraView = new JavaCameraView(this,0 );
+        mOpenCvCameraView = new ViewJavaCamera(this,0 );
+
         mOpenCvCameraView.setCvCameraViewListener(this);
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+
+
         layout.addView(mOpenCvCameraView);
         gs=new GraphicSurface(this);
         gs.getHolder().setFormat( PixelFormat.TRANSPARENT);
@@ -164,8 +175,6 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
         v = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
         soundpool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
         sound_id= soundpool.load(getBaseContext(), R.raw.bounce,1);
-
-
 
 
 
@@ -286,6 +295,7 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        Log.v("TAG","menu created");
         return true;
     }
 
@@ -308,6 +318,22 @@ public class MainActivity extends Activity implements OnClickListener, CvCameraV
 
     @Override
     public void onCameraViewStarted(int width, int height) {
+        List<Size> mResolutionList = mOpenCvCameraView.getResolutionList();
+        Size mSize = null;
+        for (Size size : mResolutionList) {
+            Log.i(TAG, "Available resolution: "+size.width+" "+size.height);
+             if(size.width<=1280&&size.height<=980) { //1280x980,1440x1080
+                    mSize = size;
+                    Log.i(TAG, "selected resolution: "+size.width+" "+size.height);
+                    break;
+                }
+            }
+        mOpenCvCameraView.setResolution(mSize);
+        Size resolution = mOpenCvCameraView.getResolution();
+        String caption = Integer.valueOf(resolution.width).toString() + "x" + Integer.valueOf(resolution.height).toString();
+        Log.v("Resolution ",caption);
+
+
         mRgba = new Mat();
         mProcessed= new Mat();
 

@@ -22,12 +22,12 @@ public class GraphicSurface extends SurfaceView implements SurfaceHolder.Callbac
     private GraphicThread graphicThread;
     private boolean toggle=false;
     Createbox2d box2d;
-    float xAxis;
-    float yAxis;
-    float zAxis;
-    float azimuth = 0.0f;
-    float pitch = 0.0f;
-    float roll = 0.0f;
+    private float xAxis;
+    private float yAxis;
+    private float zAxis;
+    private float azimuth = 0.0f;
+    private float pitch = 0.0f;
+    private float roll = 0.0f;
 
 
     public GraphicSurface(Context context) {
