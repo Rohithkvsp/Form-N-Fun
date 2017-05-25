@@ -247,13 +247,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         sensorManager.unregisterListener(sensorEventListener);
         if(gs!=null) {
             gs.surfaceDestroyed(gs.holder);
-            gs = null;
         }
         if (mOpenCvCameraView != null)
             mOpenCvCameraView.disableView();
         if(findmazesandballs != null) {
             findmazesandballs.delete();  //delete instance
-            findmazesandballs = null;
         }
     }
 
@@ -294,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener, 
         mRgba = new Mat();
         //initialize findmazesandballs
         findmazesandballs = new FindMazesAndBalls(mOpenCvCameraView.getWidth(), mOpenCvCameraView.getHeight(),resolution.width, resolution.height);
-        if(findmazesandballs.getselfAddr()!=0)
+        if(findmazesandballs.getselfAddr()!=0&&gs != null)
             gs.setAddressandScreenSize(findmazesandballs.getselfAddr(),mOpenCvCameraView.getWidth(),mOpenCvCameraView.getHeight());
     }
 
