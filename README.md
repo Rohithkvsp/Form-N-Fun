@@ -1,6 +1,10 @@
 # Form-N-Fun
 Form ‘N’ Fun is an android maze game based on real time computer vision. The uniqueness of this game is that the user can draw his own mazes on a white paper with pen/pencil and play. The game detects the maze and user can play using the accelerometer. This android app uses contours algorithms in OpenCV to detect maze that is drawn on the paper. This app uses JBox2d engine for simulating the rigid bodies.
 
+<b>Download APK<b>
+
+Apk can be found in apk folder, download and install the apk.
+
 <b>Build Instructions</b>
 
 Download <b>OpenCV for Android</b> (I used OpenCV 3.0.0) from http://opencv.org/releases.html and extract the file. I extracted the file to C:\opencv\OpenCV-3.0-android-sdk (I am using Windows Machine)
