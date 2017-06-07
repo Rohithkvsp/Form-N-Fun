@@ -8,7 +8,7 @@ using namespace std;
 extern "C" {
 
     // create instance and return the address
-    JNIEXPORT jlong JNICALL Java_com_example_formfun_FindMazesAndBalls_newSelf(JNIEnv* env, jobject, jint screen_width,jint screen_height, jint mat_width, jint mat_height)
+    JNIEXPORT jlong JNICALL Java_com_formfun_FindMazesAndBalls_newSelf(JNIEnv* env, jobject, jint screen_width,jint screen_height, jint mat_width, jint mat_height)
     {
         findballsandmazes *self = new findballsandmazes(screen_width,screen_height,mat_width,mat_height);
          __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "Created c++ object");
@@ -16,7 +16,7 @@ extern "C" {
     }
 
     // delete the instance
-    JNIEXPORT void JNICALL Java_com_example_formfun_FindMazesAndBalls_deleteSelf(JNIEnv* env, jobject, jlong selfAddr)
+    JNIEXPORT void JNICALL Java_com_formfun_FindMazesAndBalls_deleteSelf(JNIEnv* env, jobject, jlong selfAddr)
     {
        if (selfAddr != 0)
        {
@@ -26,7 +26,7 @@ extern "C" {
        }
     }
 
-    JNIEXPORT void JNICALL Java_com_example_formfun_FindMazesAndBalls_run(JNIEnv* env, jobject, jlong selfAddr, jlong addrRgba)
+    JNIEXPORT void JNICALL Java_com_formfun_FindMazesAndBalls_run(JNIEnv* env, jobject, jlong selfAddr, jlong addrRgba)
     {
 
         if (selfAddr != 0)
@@ -37,7 +37,7 @@ extern "C" {
         }
     }
 
-    JNIEXPORT jboolean JNICALL Java_com_example_formfun_FindMazesAndBalls_foundbothlineandball(JNIEnv* env, jobject, jlong selfAddr)
+    JNIEXPORT jboolean JNICALL Java_com_formfun_FindMazesAndBalls_foundbothlineandball(JNIEnv* env, jobject, jlong selfAddr)
     {
 
         if (selfAddr != 0)
@@ -55,7 +55,7 @@ extern "C" {
     /**
     *  return arraylist of BoundaryPoints objects corresponding to maze
     */
-    JNIEXPORT jobject JNICALL  Java_com_example_formfun_graphics_GraphicThread_getmazesarraylist(JNIEnv *env, jobject obj,jlong selfAddr)
+    JNIEXPORT jobject JNICALL  Java_com_formfun_graphics_GraphicThread_getmazesarraylist(JNIEnv *env, jobject obj,jlong selfAddr)
     {
         if (selfAddr == 0)
         {
@@ -73,7 +73,7 @@ extern "C" {
         jmethodID java_util_ArrayList_get  = env->GetMethodID(java_util_ArrayList, "get", "(I)Ljava/lang/Object;");
         jmethodID java_util_ArrayList_add  = env->GetMethodID(java_util_ArrayList, "add", "(Ljava/lang/Object;)Z");
 
-        jclass java_curve_cls = env->FindClass("com/example/formfun/graphics/BoundaryPoints");
+        jclass java_curve_cls = env->FindClass("com/formfun/graphics/BoundaryPoints");
         jmethodID java_curve_add = env->GetMethodID(java_curve_cls, "addPoint", "(FF)V");
         jmethodID java_curve_init = env->GetMethodID(java_curve_cls,"<init>", "()V");
 
@@ -97,7 +97,7 @@ extern "C" {
     /**
     *  return arraylist of BoundaryPoints objects corresponding to ball
     */
-    JNIEXPORT jobject JNICALL  Java_com_example_formfun_graphics_GraphicThread_getballsarraylist(JNIEnv *env, jobject obj,jlong selfAddr)
+    JNIEXPORT jobject JNICALL  Java_com_formfun_graphics_GraphicThread_getballsarraylist(JNIEnv *env, jobject obj,jlong selfAddr)
     {
         if (selfAddr == 0)
         {
@@ -115,7 +115,7 @@ extern "C" {
         jmethodID java_util_ArrayList_get  = env->GetMethodID(java_util_ArrayList, "get", "(I)Ljava/lang/Object;");
         jmethodID java_util_ArrayList_add  = env->GetMethodID(java_util_ArrayList, "add", "(Ljava/lang/Object;)Z");
 
-        jclass java_ball_cls = env->FindClass("com/example/formfun/graphics/BoundaryPoints");
+        jclass java_ball_cls = env->FindClass("com/formfun/graphics/BoundaryPoints");
         jmethodID java_ball_add = env->GetMethodID(java_ball_cls, "addPoint", "(FF)V");
         jmethodID java_ball_init = env->GetMethodID(java_ball_cls,"<init>", "()V");
 
@@ -135,7 +135,6 @@ extern "C" {
         return ballpoints;
 
     }
-
 
 
 

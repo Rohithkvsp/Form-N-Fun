@@ -24,7 +24,8 @@ class findballsandmazes {
 
   private:
 
-          Mat grayscale;
+          Mat grayscale; // Mat to contain grayscale frame
+          double approx_area = 0.0;
           float radius = 0.0;
           float scale = 0.0;
           float xoffset = 0.0;
@@ -36,8 +37,10 @@ class findballsandmazes {
           vector<Point2f> mc;
           Point2f center;
           vector<Point2f> contourshifted;
-          double CircularityStandard(const vector<cv::Point> &contour);
+          double CircularityStandard(const vector<cv::Point> &contour, double contourArea);
+          bool isCircle(const vector<cv::Point> &contour, double contourArea);
           float Distance(Point2f& p, Point2f& q);
+          bool isRect(const vector<cv::Point> &contour,double contourArea);
 
 };
 

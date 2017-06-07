@@ -49,6 +49,7 @@ void findballsandmazes::run(Mat &mRgb)
 
                approxPolyDP(contours[i], approx[i], arcLength(Mat(contours[i]), true)*0.1, true);
                mc.clear();
+               approx_area = contourArea(approx[i]);
                /*
                   this is to detect balls
                   check the boundary is convex
@@ -56,7 +57,7 @@ void findballsandmazes::run(Mat &mRgb)
                   check for boundary area < 350
                   hierarchy[i][4]!=-1 and hierarchy[i][3]!=-1 looking for boundary inside boundary
                */
-               if(isContourConvex(approx[i])&&CircularityStandard(approx[i])>0.4&&contourArea(approx[i])>40.0&&contourArea(approx[i])<350.0&&hierarchy[i][4]== -1&&hierarchy[i][3]==-1)
+               if(isContourConvex(approx[i]) && isCircle(approx[i],approx_area) && approx_area > 40.0 && approx_area < 400.0 && hierarchy[i][4]== -1 && hierarchy[i][3] == -1)
                {
 
 
@@ -67,6 +68,7 @@ void findballsandmazes::run(Mat &mRgb)
                   mc.push_back(Point2f( radius*scale,0 )); //add ball radius //add  scaled & translated boundry radius
                   ballcenter.push_back(mc); //// add scaled & translated balls center and raduis to buffer
                }
+
                /*
                     this is to detect mazes
                     if contours is not perfect convex then it is maze (only this conditions is sufficient)
@@ -75,7 +77,7 @@ void findballsandmazes::run(Mat &mRgb)
                {
                      contourshifted.clear(); // clear the scaled & translated boundry points
                      /// bondaries need to be scaled and translated because opencv will streched the frame to display and streched frame may not be displayed from top left
-                     for(int j=0;j<contours[i].size();j++)
+                     for(int j=0; j < contours[i].size(); j++)
                         contourshifted.push_back(Point2f(contours[i][j].x*scale+xoffset,contours[i][j].y*scale+yoffset));
 
                      rigidsurface.push_back(contourshifted); // add scaled & translated boundry points to maze buffer
@@ -87,16 +89,28 @@ void findballsandmazes::run(Mat &mRgb)
 }
 
 /*
+   returns true if contour is circle
+*/
+
+bool findballsandmazes::isCircle(const vector<cv::Point> &contour, double contourArea)
+{
+  if(contourArea ==0) return false;
+  Point2f _center;
+  float _radius = 0.0;
+  minEnclosingCircle( contour,  _center, _radius); // enclose the contour to circle
+  float circleArea = CV_PI * _radius * _radius;
+  return ((circleArea/contourArea)>0.75) && (CircularityStandard(contour,contourArea)>0.4);
+}
+
+/*
   returns the cicularity of the contour
 */
 
-double findballsandmazes::CircularityStandard(const vector<cv::Point> &contour)
+double findballsandmazes::CircularityStandard(const vector<cv::Point> &contour, double contourArea)
 {
-    double area = cv::contourArea(contour);
-    if (area == 0) return 0.0;
     double perimeter = cv::arcLength(contour, true);
     if (perimeter == 0) return 0.0;
-    return (4 * CV_PI*area) / (perimeter*perimeter);
+    return (4 * CV_PI*contourArea) / (perimeter*perimeter);
 }
 
 /*
