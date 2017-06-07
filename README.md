@@ -5,6 +5,15 @@ Form ‘N’ Fun is an android maze game based on real time computer vision. The
 
 Apk can be found in apk folder, download and install the apk.
 
+<b>Modifications if needed</b>
+1) <b>Resolution:</b> Resolution is fixed to 1280x960 (less than or equal). Resolution can be changed by modifing this [line](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/MainActivity.java#L284).
+
+2) <b>Limiting the Pitch and Roll:</b> Pitch and Roll is limited to 3.8, limiting value can be changed by modifing [MIN](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/graphics/GraphicThread.java#L43) and [MAX](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/graphics/GraphicThread.java#L44). [Here](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/graphics/GraphicThread.java#L69) is the implementation of limiting function.
+
+3) <b>Force on the ball:</b> Force on the ball can be changed [here](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/graphics/Ball.java#L69).
+
+4) <b>Color of the ball:</b> Color of the ball can be modified [here](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/graphics/Ball.java#L57).
+
 <b>Build Instructions</b>
 
 Download <b>OpenCV for Android</b> (I used OpenCV 3.0.0) from http://opencv.org/releases.html and extract the file. I extracted the file to C:\opencv\OpenCV-3.0-android-sdk (I am using Windows Machine)
