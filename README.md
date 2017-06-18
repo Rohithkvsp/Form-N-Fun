@@ -37,7 +37,7 @@ For example on Windows.
 
 <b>Note:</b>
 
-I build it for all the Devices but I tested it only on NEXUS 5X.
+I build it for all the Devices but I tested it on <b>NEXUS 5X</b> and <b>Google PIXEL XL</b>.
 
 <b>APP_ABI := arm64-v8a armeabi armeabi-v7a mips mips64 x86 x86_64</b>
 
