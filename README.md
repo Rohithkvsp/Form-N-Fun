@@ -17,7 +17,7 @@ Form ‘N’ Fun is an android maze game based on real time computer vision. The
 4) <b>Color of the ball:</b> Color of the ball can be modified [here](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/graphics/Ball.java#L57).
 
 
-Download <b> Android NDK r16b </b> and extract the file, On Mac I extracted to /Users/Name/Documents/Android/android-ndk-r16b
+Download <b> Android NDK r16b </b> from https://developer.android.com/ndk/downloads/older_releases.html and extract the file, On Mac I extracted to /Users/Name/Documents/Android/android-ndk-r16b
 
 Open the <b>local.properties</b> file and set <b>ndk.dir</b> to the path of Android NDK folder.
 
@@ -31,7 +31,7 @@ on Mac local.properties
     sdk.dir = /Users/Name/Library/Android/sdk
     ndk.dir = /Users/Name/Documents/Android/android-ndk-r16b
 
-<b>Build Instructions with CV4 </b>
+<b>Build Instructions with CV4: </b>
 
 Download <b>OpenCV for Android</b> (I used OpenCV 4.1.0) from http://opencv.org/releases.html and extract the file. I extracted the file to C:\Opencv\OpenCV-android-sdk-4.1.0 (On Windows) or /Users/Name/Documents/Android/OpenCV-android-sdk-4.1.0 (On Mac)
 
@@ -46,9 +46,9 @@ on Mac.
 
     export OPENCV_PACKAGE_DIR = /Users/Name/Documents/Android/OpenCV-android-sdk-4.1.0
 
+<b>Run the app</b> after making the above changes.
 
-
-<b>Build Instructions with CV3 </b>
+<b>Build Instructions with CV3: </b>
 
 Download <b>OpenCV for Android</b> (I used OpenCV 3.4.1) from http://opencv.org/releases.html and extract the file. I extracted the file to C:\Opencv\OpenCV-android-sdk-3.4.1 (On Windows) or /Users/Name/Documents/Android/OpenCV-android-sdk-3.4.1 (On Mac)
 
@@ -72,7 +72,7 @@ remove LOCAL_CPPFLAGS in [line 14](https://github.com/Rohithkvsp/Form-N-Fun/blob
 
 <b>Note:</b>
 
-I build it On Mac for all the Devices but I tested it on <b>Google PIXEL XL</b>.
+I build it on Mac for all the Devices but I tested it on <b>Google PIXEL XL</b>.
     
     APP_ABI := arm64-v8a armeabi-v7a x86 x86_64
 
