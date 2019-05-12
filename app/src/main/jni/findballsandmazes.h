@@ -6,6 +6,7 @@
 #define MYAPPLICATION2_FINDBALLSANDMAZES_H
 
 #define APPNAME "MyApplication_ndk"
+
 #include <vector>
 #include <opencv2/core/core.hpp>
 

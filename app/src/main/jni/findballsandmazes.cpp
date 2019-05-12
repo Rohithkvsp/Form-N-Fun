@@ -14,16 +14,16 @@
 findballsandmazes::findballsandmazes(int screen_width,int screen_height, int mat_width, int mat_height)
 {
        scale=min( (float)screen_width/mat_width, (float)screen_height/mat_height );  // find scale (defined in opencv JavaCameraView.java class at line 167)
-       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "screen_width %d", screen_width);
-        __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "screen_height  %d", screen_height);
-       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "mat_height %d", mat_height);
-       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "mat_width %d", mat_width);
-       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "scale %f", scale);
+       //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "screen_width %d", screen_width);
+       // __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "screen_height  %d", screen_height);
+       //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "mat_height %d", mat_height);
+       //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "mat_width %d", mat_width);
+       //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "scale %f", scale);
 
        xoffset=(float)(screen_width-scale*mat_width)/2.0; //shift the points X coordiante by xoffset (defined in opencv CameraBridgeViewBase.java at line 420)
        yoffset=(float)(screen_height-scale*mat_height)/2.0; //shift the points Y coordiante by yoffset (defined in opencv CameraBridgeViewBase.java at line 421)
-       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "xoffset %f", xoffset);
-       __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "yoffset %f", yoffset);
+       //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "xoffset %f", xoffset);
+       //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "yoffset %f", yoffset);
 }
 
 /*
@@ -33,12 +33,29 @@ findballsandmazes::findballsandmazes(int screen_width,int screen_height, int mat
 void findballsandmazes::run(Mat &mRgb)
 {
 
-         cvtColor(mRgb,grayscale, CV_BGR2GRAY); //convert frame to grayscale
+
+
+         #ifdef CV4
+              // __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "CV4");
+              cvtColor(mRgb,grayscale, COLOR_BGR2GRAY); //convert frame to grayscale CV4
+         #else
+                cvtColor(mRgb,grayscale, CV_BGR2GRAY); //convert frame to grayscale CV3
+              //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "CV3");
+         #endif
+
+
          GaussianBlur(grayscale, grayscale, Size(7,7), 2, 2); // perform gaussian blur to remove noise
          adaptiveThreshold(grayscale, grayscale,255, ADAPTIVE_THRESH_GAUSSIAN_C,THRESH_BINARY_INV,7,7 ); // apply adaptive thresolding to blured frame
          dilate(grayscale,grayscale,getStructuringElement(MORPH_RECT,Size(5,5 ),Point(-1,-1 ))); // dilate the frame to fill gaps
          erode(grayscale,grayscale, getStructuringElement(MORPH_RECT,Size(3,3 ),Point(-1,-1 ))); // erode the dilated frame to reduce the thickness of mazes and balls
-         findContours( grayscale, contours, hierarchy,CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE ); // find contours
+
+         #ifdef CV4
+            findContours( grayscale, contours, hierarchy,RETR_CCOMP, CHAIN_APPROX_SIMPLE ); //find contours CV4
+         #else
+           findContours( grayscale, contours, hierarchy,CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE ); // find contours CV3
+         #endif
+
+
 
          rigidsurface.clear(); // clear mazes buffer
          ballcenter.clear();  // clear balls buffer

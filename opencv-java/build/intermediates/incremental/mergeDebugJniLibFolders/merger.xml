@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Users\ROHIT\Desktop\Form-N-Fun-master\MyApplication2\opencv-java\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\ROHIT\Desktop\Form-N-Fun-master\MyApplication2\opencv-java\src\debug\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/rohithkvsp/Desktop/Form-N-Fun/opencv-java/src/main/jniLibs"/></dataSet><dataSet config="debug"><source path="/Users/rohithkvsp/Desktop/Form-N-Fun/opencv-java/src/debug/jniLibs"/></dataSet></merger>

@@ -1,5 +1,5 @@
 LOCAL_PATH := $(call my-dir)
-export OPENCV_PACKAGE_DIR =C:/opencv/OpenCV-3.0-android-sdk
+export OPENCV_PACKAGE_DIR =/Users/rohithkvsp/Documents/Android/openCV-android-sdk-4.1.0
 include $(CLEAR_VARS)
 
 OPENCV_CAMERA_MODULES:=off
@@ -10,4 +10,7 @@ LOCAL_MODULE:= process
 LOCAL_SRC_FILES:= processframes.cpp
 LOCAL_SRC_FILES += findballsandmazes.cpp
 LOCAL_LDLIBS +=  -llog -ldl
+
+LOCAL_CPPFLAGS := -DCV4
+
 include $(BUILD_SHARED_LIBRARY)

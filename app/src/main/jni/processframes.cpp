@@ -11,7 +11,7 @@ extern "C" {
     JNIEXPORT jlong JNICALL Java_com_formfun_FindMazesAndBalls_newSelf(JNIEnv* env, jobject, jint screen_width,jint screen_height, jint mat_width, jint mat_height)
     {
         findballsandmazes *self = new findballsandmazes(screen_width,screen_height,mat_width,mat_height);
-         __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "Created c++ object");
+        // __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "Created c++ object");
         return (jlong)self;  //cast address type  tojlong
     }
 
@@ -21,7 +21,7 @@ extern "C" {
        if (selfAddr != 0)
        {
            findballsandmazes *self = (findballsandmazes *)selfAddr;
-             __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "deleted c++ object");
+           //  __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "deleted c++ object");
            delete self;
        }
     }
@@ -79,7 +79,7 @@ extern "C" {
 
 
         jobject curvepoints = env->NewObject(java_util_ArrayList, java_util_ArrayList_init, points.size());
-        __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "arraylist maze size = %d",points.size());
+       // __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "arraylist maze size = %d",points.size());
         for(int i = 0; i < points.size(); ++i)
         {
            //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "points[%d] size %d",i,points[i].size());
@@ -121,7 +121,7 @@ extern "C" {
 
 
         jobject ballpoints = env->NewObject(java_util_ArrayList, java_util_ArrayList_init, points.size());
-        __android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "arraylist ball size = %d",points.size());
+        //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "arraylist ball size = %d",points.size());
         for(int i = 0; i < points.size(); ++i)
         {
            //__android_log_print(ANDROID_LOG_VERBOSE, APPNAME, "points[%d] size %d",i,points[i].size());

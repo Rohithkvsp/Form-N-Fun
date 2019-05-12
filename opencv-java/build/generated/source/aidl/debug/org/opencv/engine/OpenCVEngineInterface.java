@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: C:\\Users\\ROHIT\\Desktop\\Form-N-Fun-master\\MyApplication2\\opencv-java\\src\\main\\aidl\\org\\opencv\\engine\\OpenCVEngineInterface.aidl
+ * Original file: /Users/rohithkvsp/Desktop/Form-N-Fun/opencv-java/src/main/aidl/org/opencv/engine/OpenCVEngineInterface.aidl
  */
 package org.opencv.engine;
 /**
@@ -118,11 +118,6 @@ _data.recycle();
 }
 return _result;
 }
-/**
-    * Finds an installed OpenCV library.
-    * @param OpenCV version.
-    * @return Returns path to OpenCV native libs or an empty string if OpenCV can not be found.
-    */
 @Override public java.lang.String getLibPathByVersion(java.lang.String version) throws android.os.RemoteException
 {
 android.os.Parcel _data = android.os.Parcel.obtain();
@@ -164,11 +159,6 @@ _data.recycle();
 }
 return _result;
 }
-/**
-    * Returns list of libraries in loading order, separated by semicolon.
-    * @param OpenCV version.
-    * @return Returns names of OpenCV libraries, separated by semicolon.
-    */
 @Override public java.lang.String getLibraryList(java.lang.String version) throws android.os.RemoteException
 {
 android.os.Parcel _data = android.os.Parcel.obtain();
@@ -194,11 +184,6 @@ static final int TRANSACTION_installVersion = (android.os.IBinder.FIRST_CALL_TRA
 static final int TRANSACTION_getLibraryList = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
 }
 public int getEngineVersion() throws android.os.RemoteException;
-/**
-    * Finds an installed OpenCV library.
-    * @param OpenCV version.
-    * @return Returns path to OpenCV native libs or an empty string if OpenCV can not be found.
-    */
 public java.lang.String getLibPathByVersion(java.lang.String version) throws android.os.RemoteException;
 /**
     * Tries to install defined version of OpenCV from Google Play Market.
@@ -206,10 +191,5 @@ public java.lang.String getLibPathByVersion(java.lang.String version) throws and
     * @return Returns true if installation was successful or OpenCV package has been already installed.
     */
 public boolean installVersion(java.lang.String version) throws android.os.RemoteException;
-/**
-    * Returns list of libraries in loading order, separated by semicolon.
-    * @param OpenCV version.
-    * @return Returns names of OpenCV libraries, separated by semicolon.
-    */
 public java.lang.String getLibraryList(java.lang.String version) throws android.os.RemoteException;
 }
