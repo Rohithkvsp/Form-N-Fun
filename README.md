@@ -1,11 +1,11 @@
 # Form-N-Fun
-[Form ‘N’ Fun](https://experiments.withgoogle.com/form-n-fun) is an android maze game based on real time computer vision. The uniqueness of this game is that the user can draw his own mazes on a white paper with pen/pencil and play. The game detects the maze and user can play using the accelerometer. This android app uses contours algorithms in OpenCV to detect maze that is drawn on the paper. This app uses JBox2d engine for simulating the rigid bodies.
+Form ‘N’ Fun is an android maze game based on real time computer vision. The uniqueness of this game is that the user can draw his own mazes on a white paper with pen/pencil and play. The game detects the maze and user can play using the accelerometer. This android app uses contours algorithms in OpenCV to detect maze that is drawn on the paper. This app uses JBox2d engine for simulating the rigid bodies.
 
 
 
 <b>Download APK</b>
 
-Apk can be found in apk folder, download and install the apk.
+[Apk](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/apk/app-debug.apk) can be found in apk folder, download and install the apk.
 
 <b>Modifications if needed</b>
 1) <b>Resolution:</b> Resolution is fixed to 1280x960 (less than or equal). Resolution can be changed by modifing this [line](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/MainActivity.java#L284).
@@ -17,7 +17,7 @@ Apk can be found in apk folder, download and install the apk.
 4) <b>Color of the ball:</b> Color of the ball can be modified [here](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/graphics/Ball.java#L57).
 
 
-Download <b> Android NDK r16b </b> and extract the file, On Mac I extracted to /Users/Name/Documents/Android/OpenCV-android-sdk-4.1.0
+Download <b> Android NDK r16b </b> and extract the file, On Mac I extracted to /Users/Name/Documents/Android/android-ndk-r16b
 
 Open the <b>local.properties</b> file and set <b>ndk.dir</b> to the path of Android NDK folder.
 
@@ -45,8 +45,7 @@ on Windows.
 on Mac. 
 
     export OPENCV_PACKAGE_DIR = /Users/Name/Documents/Android/OpenCV-android-sdk-4.1.0
-    
-<b>Run the app</b> after making the above changes.
+
 
 
 <b>Build Instructions with CV3 </b>
@@ -68,11 +67,12 @@ remove LOCAL_CPPFLAGS in [line 14](https://github.com/Rohithkvsp/Form-N-Fun/blob
 
     LOCAL_CPPFLAGS := -DCV4
 
+
 <b>Run the app</b> after making the above changes.
 
 <b>Note:</b>
 
-I build it on Mac for all the Devices but I tested it on <b>Google PIXEL XL</b>.
+I build it On Mac for all the Devices but I tested it on <b>Google PIXEL XL</b>.
     
     APP_ABI := arm64-v8a armeabi-v7a x86 x86_64
 
