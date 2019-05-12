@@ -21,12 +21,12 @@ Download <b> Android NDK r16b </b> and extract the file, On Mac I extracted to /
 
 Open the <b>local.properties</b> file and set <b>ndk.dir</b> to the path of Android NDK folder.
 
-on Windows local.properties look like this.
+on Windows local.properties 
 
     sdk.dir = C\:\\android_sdk
     ndk.dir = C\:\\android_ndk
 
-on Mac local.properties look like this.
+on Mac local.properties 
 
     sdk.dir = /Users/Name/Library/Android/sdk
     ndk.dir = /Users/Name/Documents/Android/android-ndk-r16b
