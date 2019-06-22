@@ -1,11 +1,11 @@
 # Form-N-Fun
 [Form ‘N’ Fun](https://experiments.withgoogle.com/form-n-fun) is an android maze game based on real time computer vision. The uniqueness of this game is that the user can draw his own mazes on a white paper with pen/pencil and play. The game detects the maze and user can play using the accelerometer. This android app uses contours algorithms in OpenCV to detect maze that is drawn on the paper. This app uses JBox2d engine for simulating the rigid bodies.
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.formfun/)
 
-
-<b>Download APK</b>
-
-[Apk](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/apk/app-debug.apk) can be found in apk folder, download and install the apk.
+Or you can download the [apk](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/apk/app-debug.apk) that can be found in the apk folder and install it.
 
 <b>Modifications if needed</b>
 1) <b>Resolution:</b> Resolution is fixed to 1280x960 (less than or equal). Resolution can be changed by modifing this [line](https://github.com/Rohithkvsp/Form-N-Fun/blob/master/app/src/main/java/com/formfun/MainActivity.java#L284).
